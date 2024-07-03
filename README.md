@@ -17,27 +17,27 @@ BuildVersion:		23F79
 /bin/zsh
 ```
 
-Homebrewをインストールするために必要となるコマンドラインツール「Command line tools for Xcode」をインストール
+Homebrewをインストールするために必要となるコマンドラインツール「Command line tools for Xcode」をインストール  
 ただ、本環境ではすでに存在している
 ```sh
 % xcode-select --install
 xcode-select: note: Command line tools are already installed. Use "Software Update" in System Settings or the softwareupdate command line interface to install updates
 ```
 
-Homebrewの確認とインストール
+Homebrewの確認とインストール  
 本環境にはないのでインストールを実施する
 ```sh
 % brew -v
 zsh: command not found: brew
 ```
-以下のサイトにあるコマンドを実行する
+以下のサイトにあるコマンドを実行する  
 https://brew.sh/ja/
 ```sh
 % /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 % brew -v
 zsh: command not found: brew
 ```
-バージョンが表示されないので、以下のコマンドを実行して解決させる
+バージョンが表示されないので、以下のコマンドを実行して解決させる  
 https://qiita.com/TORAPPU/items/b2809083af3cf967d70f
 ```sh
 % (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/marugan/.zprofile
@@ -102,4 +102,32 @@ Version: ImageMagick 7.1.1-34 Q16-HDRI aarch64 22301 https://imagemagick.org
 Copyright: (C) 1999 ImageMagick Studio LLC
 License: https://imagemagick.org/script/license.php
 Features: Cipher DPC HDRI Modules OpenMP(5.0) 
+
+（略）
 ```
+
+# Railsのお試し
+作業用のディレクトリを作成し、Railsプロジェクトを作成  
+そして、Railsルートディレクトリに移動し、サーバーを起動する
+```sh
+% mkdir myApp
+% cd myApp
+% rails _7.0.4_ new pdiary
+% cd pdiary
+% bin/rails server
+```
+コマンドを起動後に、`http://localhost:3000/`にアクセスする
+
+各ディレクトリの役割を以下に示す
+| ディレクトリ名 | 役割 |
+| ---- | ---- |
+| assets | 画像やCSSを格納するディレクトリ |
+| channels | Webサーバとブラウザ間の双方向リアルタイム通信に関するものを格納するディレクトリ |
+| controllers | コントローラ（MVCモデルのC）を格納するディレクトリ |
+| helper | ビューでの処理を共通にまとめたもの（ヘルパー）を格納するディレクトリ |
+| javascript | javascriptを格納するディレクトリ |
+| jobs | サーバーで動作する一連の処理（ジョブ）に関するディレクトリ |
+| mailers | メール送信機能に関することものを格納するディレクトリ |
+| models | モデル（MVCモデルのM）を格納するディレクトリ |
+| views | ビュー（MVCモデルのV）を格納するディレクトリ |
+
