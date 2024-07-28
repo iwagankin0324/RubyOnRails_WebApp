@@ -107,6 +107,7 @@ Features: Cipher DPC HDRI Modules OpenMP(5.0)
 ```
 
 # Railsのお試し
+## プロジェクト作成
 作業用のディレクトリを作成し、Railsプロジェクトを作成  
 そして、Railsルートディレクトリに移動し、サーバーを起動する
 ```sh
@@ -130,4 +131,66 @@ Features: Cipher DPC HDRI Modules OpenMP(5.0)
 | mailers | メール送信機能に関することものを格納するディレクトリ |
 | models | モデル（MVCモデルのM）を格納するディレクトリ |
 | views | ビュー（MVCモデルのV）を格納するディレクトリ |
+
+# scaffoldで日記投稿画面を作成
+Railsのscaffold（スキャフォールド）機能を利用して、日記をデータベースに保存するための準備をする。
+以下のコマンドを実行する。
+bin/rails generate scaffold 名前 カラム名:データ型 カラム名:データ型 ...
+
+```sh
+% bin/rails generate scaffold Idea title:string description:text picture:string published_at:date
+      invoke  active_record
+      create    db/migrate/20240728092420_create_ideas.rb
+      create    app/models/idea.rb
+      invoke    test_unit
+      create      test/models/idea_test.rb
+      create      test/fixtures/ideas.yml
+      invoke  resource_route
+       route    resources :ideas
+      invoke  scaffold_controller
+      create    app/controllers/ideas_controller.rb
+      invoke    erb
+      create      app/views/ideas
+      create      app/views/ideas/index.html.erb
+      create      app/views/ideas/edit.html.erb
+      create      app/views/ideas/show.html.erb
+      create      app/views/ideas/new.html.erb
+      create      app/views/ideas/_form.html.erb
+      create      app/views/ideas/_idea.html.erb
+      invoke    resource_route
+      invoke    test_unit
+      create      test/controllers/ideas_controller_test.rb
+      create      test/system/ideas_test.rb
+      invoke    helper
+      create      app/helpers/ideas_helper.rb
+      invoke      test_unit
+      invoke    jbuilder
+      create      app/views/ideas/index.json.jbuilder
+      create      app/views/ideas/show.json.jbuilder
+      create      app/views/ideas/_idea.json.jbuilder
+```
+
+上記でひとつのモデルに対して、データの削除・更新・参照するための雛形を生成された。
+具体的には次が生成されます。
+- Ideaをデータベースで管理するためのIdeaテーブルの定義
+- Ideaを一覧で見る・投稿する・編集する・削除する・参照するための雛形
+- テストする時に必要な雛形
+
+scaffold機能では、雛形の生成するだけで、データベースにIdeaを管理するためのテーブルは作成されていない。
+なのえ、生成されたテーブルの定義ファイルを利用して、Ideaを管理するテーブルをデータベース上に次に作成する。
+
+```sh
+ % bin/rails db:migrate
+== 20240728092420 CreateIdeas: migrating ======================================
+-- create_table(:ideas)
+   -> 0.0007s
+== 20240728092420 CreateIdeas: migrated (0.0007s) =============================
+```
+
+次のコマンドを実行して、ブラウザで`http://localhost:3000/ideas/`にアクセスする。
+```sh
+% bin/rails server
+```
+
+
 
